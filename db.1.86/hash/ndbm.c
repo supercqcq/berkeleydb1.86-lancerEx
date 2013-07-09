@@ -277,7 +277,7 @@ dbm_error(db)
 	HTAB *hp;
 
 	hp = (HTAB *)db->internal;
-	return (hp->errno);
+	return (hp->dbm_errno);
 }
 
 int
@@ -287,7 +287,7 @@ dbm_clearerr(db)
 	HTAB *hp;
 
 	hp = (HTAB *)db->internal;
-	hp->errno = 0;
+	hp->dbm_errno = 0;
 	return (0);
 }
 
