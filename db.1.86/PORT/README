@@ -1,4 +1,10 @@
-#	@(#)README	8.6 (Berkeley) 6/20/94
+#	@(#)README	8.6 (Berkeley) 6/20/1994
+#	@(#)UPDATE  8.6 (Berkeley) 7/09/2013
+
+Notices:
+    To compile berkeleydb1.86, using 'Makefile' at the parent directory. 
+  This directory was useless after modified by lancerexw.
+
 
 This is the area for building the libdb library.  There are a number
 of porting directories, for various architecture/OS combinations.  Pick
