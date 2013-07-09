@@ -51,7 +51,7 @@ static char sccsid[] = "@(#)hash.c	8.12 (Berkeley) 11/7/95";
 #include <assert.h>
 #endif
 
-#include <db.h>
+#include "db.h"
 #include "hash.h"
 #include "page.h"
 #include "extern.h"
@@ -620,7 +620,7 @@ hash_get(dbp, key, data, flag)
 
 	hashp = (HTAB *)dbp->internal;
 	if (flag) {
-		hashp->errno = errno = EINVAL;
+		hashp->dbm_errno = errno = EINVAL;
 		return (ERROR);
 	}
 	return (hash_access(hashp, HASH_GET, (DBT *)key, data));
@@ -637,11 +637,11 @@ hash_put(dbp, key, data, flag)
 
 	hashp = (HTAB *)dbp->internal;
 	if (flag && flag != R_NOOVERWRITE) {
-		hashp->errno = errno = EINVAL;
+		hashp->dbm_errno = errno = EINVAL;
 		return (ERROR);
 	}
 	if ((hashp->flags & O_ACCMODE) == O_RDONLY) {
-		hashp->errno = errno = EPERM;
+		hashp->dbm_errno = errno = EPERM;
 		return (ERROR);
 	}
 	return (hash_access(hashp, flag == R_NOOVERWRITE ?
@@ -658,11 +658,11 @@ hash_delete(dbp, key, flag)
 
 	hashp = (HTAB *)dbp->internal;
 	if (flag) {
-		hashp->errno = errno = EINVAL;
+		hashp->dbm_errno = errno = EINVAL;
 		return (ERROR);
 	}
 	if ((hashp->flags & O_ACCMODE) == O_RDONLY) {
-		hashp->errno = errno = EPERM;
+		hashp->dbm_errno = errno = EPERM;
 		return (ERROR);
 	}
 
@@ -837,7 +837,7 @@ cursor_get(dbp, cursorp, key, val, flags)
 	hashp = (HTAB *)dbp->internal;
 
 	if (flags && flags != R_FIRST && flags != R_NEXT) {
-		hashp->errno = errno = EINVAL;
+		hashp->dbm_errno = errno = EINVAL;
 		return (ERROR);
 	}
 #ifdef HASH_STATISTICS
